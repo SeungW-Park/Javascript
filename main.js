@@ -8,33 +8,79 @@
 // 유저가 범위 이상의 숫자를 입력하면 알려준다. 기회를 깎지 않는다.
 // 유저가 이미 입력한 숫자를 다시 입력하면 알려준다. 기회를 깎지 않는다.
 
-let computerNum = 0;
-let goBtn = document.getElementById("go-btn");
-let userInput = document.getElementById("user-input");
-let resultArea = document.getElementById("result-area")
+let answer;
+let userNumber;
+let chance = 5;
+let isGameOver = false;
+let numArr = new Array();
 
-goBtn.addEventListener("click", play);
+let resultLetter = document.querySelector("#result-letter");
+let inputArea = document.querySelector("#input-number");
+let inputButton = document.querySelector("#input-button");
+let resetButton = document.querySelector("#reset-button");
+let lastChance = document.querySelector(".last-chance");
 
-function pickRandomNum() {
-  // 두 자리 랜덤 숫자를 변수에 저장
-  computerNum = Math.floor(Math.random() * (10 ** 2)) + 1;
+inputButton.addEventListener("click", getNumber);
+resetButton.addEventListener("click", reset);
+inputArea.addEventListener("focus", function () {inputArea.value = "";})
+
+// 랜덤번호 지정
+function setNumber() {
+  answer = Math.floor(Math.random() * 100) + 1;
+  console.log("정답 : ", answer);
 }
 
-// up, down, 정답을 result-area에 출력
-function play() {
-  let userValue = userInput.value;
-  if (userValue < computerNum) {
-    resultArea.textContent = "UP!"
-  } else if (userValue > computerNum) {
-    resultArea.textContent = "DOWN!"
-  } else if (userValue == computerNum) {
-    resultArea.textContent = "정답입니다!"
+// 입력값 받아오기
+function getNumber() {
+  userNumber = inputArea.value;
+
+  if (userNumber < 1 || userNumber > 100) {
+    resultLetter.innerText = "1~100 사이의 숫자를 입력하세요."
+    return;
+  }
+
+  if (numArr.includes(userNumber)) {
+    resultLetter.innerText = "이미 입력했던 숫자입니다."
+    return;
+  }
+
+  numArr.push(userNumber);
+
+  if (userNumber > answer) {
+    resultLetter.innerText = "아래로!";
+  } else if (userNumber < answer) {
+    resultLetter.innerText = "위로!";
+  } else {
+    resultLetter.innerText = "정답입니다!";
+    inputButton.disabled = true;
+    inputButton.style = "background: gray;"
+    inputArea.value = "";
+  }
+
+  if (chance >= 1) {
+    chance --;
+    lastChance.innerText = `CHANCE : ${chance}`;
+    if (chance == 0) {
+      isGameOver = true;
+      console.log("game over");
+      lastChance.innerText = "게임 종료!";
+      lastChance.style = "color: red;"
+      inputButton.disabled = true;
+      inputButton.style = "background: gray;"
+      inputArea.value = "";
+    }
   }
 }
 
-pickRandomNum();
+function reset() {
+  chance = 5;
+  lastChance.innerText = `CHANCE : ${chance}`;
+  lastChance.style = "color: black;"
+  inputButton.disabled = false;
+  inputButton.style = "background: rgb(65, 65, 248);"
+  resultLetter.innerText = "결과값이 여기에 표시됩니다.";
+  numArr.length = 0;
+  setNumber();
+}
 
-let test = document.getElementById("test");
-console.log(test.innerText);
-console.log(test.textContent);
-console.log(test.innerHTML);
+setNumber();
