@@ -10,7 +10,7 @@ html, body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   overflow: hidden;
   position: relative;
@@ -36,8 +36,8 @@ body::before {
   font-size: 4rem;
   font-weight: 400;
   color: red;
-  position: absolute;
-  top: 40px;
+  position: relative;
+  top: 0px;
   text-shadow: 1.5px 1.5px 3px rgba(255, 255, 255, 0.8);
   text-align: center;
   animation: commentUp 0.5s ease-in-out;
@@ -63,7 +63,14 @@ body::before {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 100px 20px;
+  padding: 50px 20px;
+}
+
+.answer-area {
+  font-size: 2rem;
+  color: gray;
+  position: relative;
+  top: -1em;
 }
 
 .title {
@@ -71,7 +78,7 @@ body::before {
   font-weight: 400;
   text-shadow: 1.5px 1.5px 3px gray;
   position: relative;
-  top: -10%;
+  top: -1%;
 }
 
 .result-area {
@@ -151,7 +158,11 @@ body::before {
 
 .last-chance {
   font-size: 1.5rem;
-  margin-top: -60px;
+  /* margin-top: -60px; */
+}
+
+.number-list {
+  font-size: 1.5rem;
 }
 
 @media screen and (min-width: 992px) {

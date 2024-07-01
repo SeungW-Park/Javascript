@@ -10,7 +10,7 @@
 
 let answer;
 let userNumber;
-let chance = 5;
+let chance = 3;
 let isGameOver = false;
 let numArr = new Array();
 
@@ -19,6 +19,8 @@ let inputArea = document.querySelector("#input-number");
 let inputButton = document.querySelector("#input-button");
 let resetButton = document.querySelector("#reset-button");
 let lastChance = document.querySelector(".last-chance");
+let answerArea = document.querySelector(".answer-area");
+let numberArea = document.querySelector(".number-list");
 
 inputButton.addEventListener("click", getNumber);
 resetButton.addEventListener("click", reset);
@@ -27,7 +29,7 @@ inputArea.addEventListener("focus", function () {inputArea.value = "";})
 // 랜덤번호 지정
 function setNumber() {
   answer = Math.floor(Math.random() * 100) + 1;
-  console.log("정답 : ", answer);
+  answerArea.innerText = `정답 : ${answer}`
 }
 
 // 입력값 받아오기
@@ -45,6 +47,7 @@ function getNumber() {
   }
 
   numArr.push(userNumber);
+  numberArea.textContent += String(userNumber) + ", ";
 
   if (userNumber > answer) {
     resultLetter.innerText = "아래로!";
@@ -55,6 +58,7 @@ function getNumber() {
     inputButton.disabled = true;
     inputButton.style = "background: gray;"
     inputArea.value = "";
+    lastChance.textContent = "";
   }
 
   if (chance >= 1) {
@@ -68,17 +72,19 @@ function getNumber() {
       inputButton.disabled = true;
       inputButton.style = "background: gray;"
       inputArea.value = "";
+      numberArea.textContent = "입력했던 숫자 : ";
     }
   }
 }
 
 function reset() {
-  chance = 5;
+  chance = 3;
   lastChance.innerText = `CHANCE : ${chance}`;
   lastChance.style = "color: black;"
   inputButton.disabled = false;
   inputButton.style = "background: rgb(65, 65, 248);"
   resultLetter.innerText = "결과값이 여기에 표시됩니다.";
+  numberArea.textContent = "입력했던 숫자 : ";
   numArr.length = 0;
   setNumber();
 }
