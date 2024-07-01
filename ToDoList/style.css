@@ -41,6 +41,19 @@ button:hover {
   position: relative;
 }
 
+.tab-button {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.tab-button:hover {
+  transform: scale(1.1);
+}
+
+.tab-button:active {
+  color: pink;
+}
+
 .task-tabs div {
   padding: 1em 2em;
 }
@@ -53,6 +66,7 @@ button:hover {
   left: 0px;
   top: 52px;
   padding: 0px;
+  transition: 0.2s ease-in-out;
 }
 
 .task {
