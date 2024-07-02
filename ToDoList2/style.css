@@ -1,0 +1,408 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+#toggle-button {
+  background-color: #cbabf7;
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  padding: .8em .6em;
+  z-index: 3;
+  cursor: pointer;
+  display: none;
+  border-radius: 7px;
+  transition: transform 0.2s ease;
+}
+
+#toggle-button:hover {
+  transform: scale(1.15);
+}
+
+.nav-bar {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1em;
+  padding: .4em 0 1em 0;
+}
+
+.profile-left img {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.profile-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-right .title {
+  font-size: 1rem;
+  color: gray;
+  margin-bottom: 2px;
+}
+
+.profile-right .my-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #cbabf7;
+}
+
+.divide-line {
+  width: 70%;
+  border-bottom: 2px solid #cbabf7;
+  margin-bottom: 25%;
+}
+
+.nav-menus {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-menus>div {
+  height: 80%;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: gray;
+}
+
+.menu-1 {
+  position: relative;
+}
+
+#menu-1-1, #menu-1-2, #menu-1-3 {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+#menu-1-1:hover, #menu-1-2:hover, #menu-1-3:hover {
+  transform: translateX(7%);
+}
+
+.menu-title {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.menu-title i {
+  margin-right: 10%;
+}
+
+.sub-menu {
+  font-size: 1.1rem;
+  margin-top: 8%;
+  position: relative;
+  right: -18%;
+}
+
+.sub-menu>i {
+  margin-right: 9%;
+}
+
+.task-container {
+  width: 70%;
+  background-color: #cbabf7;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-wrapper {
+  width: 90%;
+  height: 80%;
+  position: absolute;
+  top: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper-title {
+  width: 100%;
+  align-self: flex-start;
+  position: relative;
+  left: 2%;
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 1.5px 1.5px 3px rgba(128, 0, 128, 0.3);
+  margin-bottom: 8%;
+  display: flex;
+}
+
+.input-box {
+  width: 95%;
+  background-color: #faf7fc;
+  margin-bottom: 8%;
+  height: 8%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  padding: .8em;
+}
+
+.i-wrapper {
+  width: 55px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.i-wrapper>i {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.i-wrapper>i:hover {
+  transform: scale(1.15);
+}
+
+#input-area {
+  width: calc(100% - 105px);
+  height: 100%;
+  border: none;
+  background-color: #faf7fc;
+}
+
+#input-area:focus {
+  outline: none;
+}
+
+#input-area::placeholder {
+  color: #c6c6c6;
+  font-size: .9rem;
+}
+
+#input-button {
+  width: 35px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #faf7fc;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+#input-button:hover {
+  transform: translateX(10%) scale(1.15);
+}
+
+.task-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#tasks {
+  background-color: #faf7fc;
+  margin-bottom: 15px;
+  width: 90%;
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  padding: .8em;
+}
+
+#task-group {
+  width: 15px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#task-content {
+  width: calc(100% - 105px);
+  font-size: .9em;
+  color: gray;
+}
+
+.button-combined {
+  width: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-combined>button {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.button-combined>button:hover {
+  transform: scale(1.15);
+}
+
+#done-button, #delete-button {
+  border: none;
+  background-color: #faf7fc;
+}
+
+.tab-combined {
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  position: absolute;
+  bottom: -10%;
+  color: white;
+  font-weight: 600;
+  text-shadow: 1.5px 1.5px 3px rgba(128, 0, 128, 0.3);
+}
+
+.tab-combined>div {
+  border: 3px solid white;
+  box-shadow: 1.5px 1.5px 3px rgba(128, 0, 128, 0.3);
+  border-radius: 7px;
+  padding: .3em .5em;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.tab-combined>div:hover {
+  color: #966be8;
+  border-color: #966be8;
+}
+
+@media screen and (min-width: 1200px) {
+  .nav-bar {
+    width: 20%;
+  }
+
+  .task-container {
+    width: 80%;
+  }
+
+  .wrapper-title {
+    margin-bottom: 6%;
+  }
+
+  .input-box {
+    margin-bottom: 6%;
+  }
+
+  #tasks {
+    height: 12%;
+    margin-bottom: 18px;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #toggle-button {
+    display: block;
+  }
+
+  .nav-bar {
+    background-color: white;
+    width: 100%;
+    height: 32%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.4em 0 0 0;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.5);
+    display: none;
+  }
+
+  .nav-bar.active {
+    display: flex;
+    animation: navBarToggle 0.3s ease;
+  }
+
+  @keyframes navBarToggle {
+    0% {
+      transform: translateY(-32%);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .nav-menus {
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .nav-menus>div {
+    width: 50%;
+    height: 80%;
+    margin-bottom: 20px;
+  }
+
+  #settings {
+    margin-bottom: 0;
+  }
+
+  .menu-title {
+    justify-content: center;
+  }
+
+  .menu-title>i {
+    margin-right: .7em;
+  }
+
+  .sub-menu {
+    font-size: 1.1rem;
+    margin-top: 4%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    right: -32%;
+  }
+
+  .profile, .divide-line {
+    display: none;
+  }
+
+  .task-container {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+}
