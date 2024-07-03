@@ -27,7 +27,7 @@
 
     <div class="nav-menus">
       <div id="menu-1">
-        <div class="menu-title">
+        <div class="menu-title" id="menu-1-0">
           <i class="fa-regular fa-calendar" style="color: #cbabf7;"></i>
           Today Tasks
         </div>
@@ -35,7 +35,7 @@
         <div id="menu-1-2" class="sub-menu"><i class="fa-solid fa-circle fa-xs" style="color: #63E6BE;"></i>Individual</div>
         <div id="menu-1-3" class="sub-menu"><i class="fa-solid fa-circle fa-xs" style="color: #FFD43B;"></i>Work</div>
       </div>
-      <div class="menu-title" style="color: #c6c6c6;">
+      <div class="menu-title" id="Scheduled-tasks" style="color: #c6c6c6;">
         <i class="fa-regular fa-calendar-check" style="color: #c6c6c6;"></i>
         Scheduled Tasks
       </div>
@@ -54,9 +54,9 @@
 
       <div class="input-box">
         <div class="i-wrapper">
-          <i class="fa-solid fa-circle fa-xs" style="color: #74C0FC;"></i>
-          <i class="fa-solid fa-circle fa-xs" style="color: #63E6BE;"></i>
-          <i class="fa-solid fa-circle fa-xs" style="color: #FFD43B;"></i>
+          <i id="personal-type" class="fa-solid fa-circle fa-xs" style="color: #74C0FC;"></i>
+          <i id="individual-type" class="fa-solid fa-circle fa-xs" style="color: #63E6BE;"></i>
+          <i id="work-type" class="fa-solid fa-circle fa-xs" style="color: #FFD43B;"></i>
         </div>
         <input id="input-area" type="text" placeholder="What is your next task?">
         <button id="input-button"><i class="fa-solid fa-greater-than fa-lg" style="color: #cbabf7"></i></button>
@@ -64,26 +64,6 @@
 
       <div class="task-box">
         <!-- 동적으로 추가 예정 -->
-        <div id="tasks">
-          <div id="task-group">
-            <i class="fa-solid fa-circle fa-xs" style="color: #74C0FC;"></i>
-          </div>
-          <div id="task-content">운동하기</div>
-          <div class="button-combined">
-            <button id="done-button"><i class="fa-regular fa-circle-check fa-xl" style="color: #cbabf7"></i></button>
-            <button id="delete-button"><i class="fa-regular fa-trash-can fa-xl" style="color: #cbabf7;"></i></button>
-          </div>
-        </div>
-        <div id="tasks">
-          <div id="task-group">
-            <i class="fa-solid fa-circle fa-xs" style="color: #74C0FC;"></i>
-          </div>
-          <div id="task-content">회식 가기</div>
-          <div class="button-combined">
-            <button id="done-button"><i class="fa-regular fa-circle-check fa-xl" style="color: #c6c6c6;"></i></button>
-            <button id="delete-button"><i class="fa-regular fa-trash-can fa-xl" style="color: #cbabf7;"></i></button>
-          </div>
-        </div>
       </div>
 
 

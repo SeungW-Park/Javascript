@@ -105,6 +105,12 @@ body {
 .menu-title {
   display: flex;
   justify-content: flex-start;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.menu-title:hover {
+  transform: translateX(10%);
 }
 
 .menu-title i {
@@ -120,6 +126,10 @@ body {
 
 .sub-menu>i {
   margin-right: 9%;
+}
+
+#settings {
+  color: #c6c6c6;
 }
 
 .task-container {
@@ -283,12 +293,10 @@ body {
   bottom: -10%;
   color: white;
   font-weight: 600;
-  text-shadow: 1.5px 1.5px 3px rgba(128, 0, 128, 0.3);
 }
 
 .tab-combined>div {
   border: 3px solid white;
-  box-shadow: 1.5px 1.5px 3px rgba(128, 0, 128, 0.3);
   border-radius: 7px;
   padding: .3em .5em;
   cursor: pointer;
@@ -404,5 +412,29 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-30%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-30%);
+    opacity: 0;
   }
 }
