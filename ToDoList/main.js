@@ -22,6 +22,12 @@ let tabName = "all"; // 현재 탭 저장
 addButton.addEventListener("click", addTask);
 menus.forEach((menu) => menu.addEventListener("click", (e) => horizontalIndicator(e)));
 
+taskInput.addEventListener("keyup", function(event) {
+  if (event.keyCode == 13) {
+    addTask();
+  }
+});
+
 // 메뉴 탭 이동
 function horizontalIndicator(e) {
   underLine.style.left = e.currentTarget.offsetLeft + "px";
@@ -44,6 +50,7 @@ function addTask() {
   taskList.push(task);
   taskInput.value = "";
   console.log(taskList);
+
   
   if (tabName == "all") {
     render();
@@ -52,6 +59,7 @@ function addTask() {
   } else if (tabName == "done") {
     filter("done");
   }
+  
 }
 
 // 일정 탭 렌더링
@@ -59,19 +67,19 @@ function render() {
   let resultHTML = "";
   for (let i = 0; i < taskList.length; i++) {
     if (taskList[i].isComplete == true) {
-      resultHTML += `<div class="task">
+      resultHTML += `<div class="task" data-id="${taskList[i].id}">
           <div class="task-content" id="task-done">${taskList[i].taskContent}</div>
           <div class="button-container">
             <button id="check-button" onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-rotate-left fa-lg" style="color: #6b6b6b;"></i></button>
-            <button id="delete-button" onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash-can fa-lg" style="color: #f4aecc;"></i></button>
+            <button id="delete-button" onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash-can fa-lg" style="color: #b2daea;"></i></button>
           </div>
         </div>`;
     } else {
-      resultHTML += `<div class="task">
+      resultHTML += `<div class="task" data-id="${taskList[i].id}">
             <div class="task-content">${taskList[i].taskContent}</div>
             <div class="button-container">
               <button id="check-button" onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-check fa-lg" style="color: #63E6BE;"></i></button>
-              <button id="delete-button" onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash-can fa-lg" style="color: #f4aecc;"></i></button>
+              <button id="delete-button" onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash-can fa-lg" style="color: #b2daea;"></i></button>
             </div>
           </div>`;
     }
@@ -127,26 +135,26 @@ function filter(button_type) {
     resultHTML = "";
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].isComplete == false) {
-        resultHTML += `<div class="task">
+        resultHTML += `<div class="task" data-id="${taskList[i].id}">
             <div class="task-content">${taskList[i].taskContent}</div>
             <div class="button-container">
               <button id="check-button" onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-check fa-lg" style="color: #63E6BE;"></i></button>
-              <button id="delete-button" onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash-can fa-lg" style="color: #f4aecc;"></i></button>
+              <button id="delete-button" onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash-can fa-lg" style="color: #b2daea;"></i></button>
             </div>
           </div>`;
       }
     }
-    document.querySelector("#task-board").innerHTML = resultHTML;
+    item.style.animation = 'SlideIn 0.3s ease-in-out';
   } else if (button_type == "done") {
     tabName = "done";
     resultHTML = "";
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].isComplete == true) {
-        resultHTML += `<div class="task">
+        resultHTML += `<div class="task" data-id="${taskList[i].id}">
           <div class="task-content" id="task-done">${taskList[i].taskContent}</div>
           <div class="button-container">
             <button id="check-button" onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-rotate-left fa-lg" style="color: #6b6b6b;"></i></button>
-            <button id="delete-button" onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash-can fa-lg" style="color: #f4aecc;"></i></button>
+            <button id="delete-button" onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash-can fa-lg" style="color: #b2daea;"></i></button>
           </div>
         </div>`;
       }

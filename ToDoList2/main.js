@@ -9,8 +9,10 @@ toggleButton.addEventListener("click", function () {
 // input 버튼을 누르면 할 일을 리스트에 추가
 let taskList = new Array();
 let filteredList = new Array();
+let secondFilteredList = new Array();
 let taskType = "Personal";
 let menuTab;
+let CompleteTab;
 let isFiltered = false;
 
 let inputArea = document.querySelector("#input-area");
@@ -24,9 +26,6 @@ let allMenu = document.querySelector(".menu-title:first-child");
 let personalMenu = document.querySelector("#menu-1-1");
 let individualMenu = document.querySelector("#menu-1-2");
 let workMenu = document.querySelector("#menu-1-3");
-let allTab = document.querySelector("#all-tab");
-let doneTab = document.querySelector("#done-tab");
-let notDoneTab = document.querySelector("#not-done-tab");
 let scheduledTasks = document.querySelector("#Scheduled-tasks");
 let settings = document.querySelector("#settings");
 
@@ -47,13 +46,10 @@ inputArea.addEventListener("keyup", function(e) {
 })
 
 // 필터 이벤트 리스너
-allMenu.addEventListener("click", Filter);
-personalMenu.addEventListener("click", Filter);
-individualMenu.addEventListener("click", Filter);
-workMenu.addEventListener("click", Filter);
-allTab.addEventListener("click", Filter);
-doneTab.addEventListener("click", Filter);
-notDoneTab.addEventListener("click", Filter);
+allMenu.addEventListener("click", TypeFilter);
+personalMenu.addEventListener("click", TypeFilter);
+individualMenu.addEventListener("click", TypeFilter);
+workMenu.addEventListener("click", TypeFilter);
 
 //할 일 입력 받을 때 일의 종류 입력
 personalButton.addEventListener("click", function() {
@@ -71,6 +67,11 @@ workButton.addEventListener("click", function() {
 
 // 할 일 리스트에 할 일 추가
 function AddTask() {
+  if (inputArea.value == "") {
+    alert("내용을 입력해주세요.");
+    return;
+  }
+
   let taskObject = {
     taskId: GenerateID(),
     taskContent: inputArea.value,
@@ -106,7 +107,7 @@ function GenerateID() {
 function RenderUI() {
   resultHTML = "";
 
-  if (!isFiltered) {
+  if (menuTab == undefined) {
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].taskType == "Personal") {
         if (taskList[i].isComplete == false) {
@@ -278,7 +279,7 @@ function RenderUI() {
     }
 
     taskBox.innerHTML = resultHTML;
-  }
+  } 
 }
 
 // 완료 여부 토글 및 UI 렌더링
@@ -315,6 +316,7 @@ function DeleteTask(id) {
           filteredList.splice(i, 1);
         }
       }
+
       RenderUI();
     });
     item.style.animation = 'slideOut 0.3s ease-in-out';
@@ -322,7 +324,7 @@ function DeleteTask(id) {
 }
 
 // 할 일 필터링
-function Filter() {
+function TypeFilter() {
   filteredList = [];
 
   if (this.id == "menu-1-1") { // Personal 클릭
@@ -363,11 +365,5 @@ function Filter() {
     menuTab = undefined;
 
     RenderUI();
-  } else if (this.id == "all-tab") {
-    console.log("all-tab");
-  } else if (this.id == "done-tab") {
-    console.log("done-tab");
-  } else if (this.id == "not-done-tab") {
-    console.log("not-done-tab");
-  }
+  } 
 }
