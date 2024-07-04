@@ -144,7 +144,7 @@ function filter(button_type) {
           </div>`;
       }
     }
-    item.style.animation = 'SlideIn 0.3s ease-in-out';
+    document.querySelector("#task-board").innerHTML = resultHTML;
   } else if (button_type == "done") {
     tabName = "done";
     resultHTML = "";
