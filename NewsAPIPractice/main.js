@@ -33,7 +33,13 @@ const getLatestNews = async () => {
     `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
   );
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Upgrade' : 'h2c',
+      'Connection': 'Upgrade'
+    }
+  });
   const data = await response.json();
   newsList = data.articles;
   Render();
