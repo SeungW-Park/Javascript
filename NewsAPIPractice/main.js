@@ -41,7 +41,7 @@ const getLatestNews = async () => {
 };
 
 function Render() {
-  const resultHTML = newsList.map(news => {
+  const resultHTML = newsList?.map(news => {
     let title = news.title;
     if (title && title.length > 40) {
       title = title.substring(0, 40) + " ...";
