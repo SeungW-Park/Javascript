@@ -7,6 +7,7 @@ let page = 1;
 let movePage = "";
 const pageSize = 10;
 const groupSize = 5;
+let totalPageC;
 
 // UI 작동
 let navBarIcon = document.querySelector(".nav-bar-icon");
@@ -154,26 +155,40 @@ async function setKeywords() { // 리펙토링
 
 function paginationRender() {
   const totalPage = Math.ceil(totalResult / pageSize);
+  totalPageC = totalPage;
   const pageGroup = Math.ceil(page / groupSize);
   let lastPage = pageGroup * groupSize;
   if (lastPage > totalPage) {
     lastPage = totalPage;
   }
   const firstPage = lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+  if (lastPage % 5 !== 0) {
+    firstPage = lastPage - 5;
+  }
 
 
   let paginationHTML = "";
+  
+  if (totalPage > groupSize && pageGroup !== 1) {
+    paginationHTML +=
+      `<li class="page-item ${pageGroup == 1 ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('f')"><<</a></li>
+      <li class="page-item ${page == 1 ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('-')"><</a></li>`;
+  }
 
-  paginationHTML +=
-    `<li class="page-item ${page == 1 ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('-')"><</a></li>`;
   for (let i = firstPage; i <= lastPage; i++) {
     paginationHTML +=
       `<li class="page-item ${i == page ? 'active' : ''}" onclick="moveToPage(${i})"><a class="page-link">
       ${i}
       </a></li>`;
   }
-  paginationHTML +=
-    `<li class="page-item ${page == totalPage ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('+')">></a></li>`;
+
+  if (totalPage > groupSize && firstPage !== totalPage - groupSize + 1) {
+    paginationHTML +=
+      `<li class="page-item ${page == totalPage ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('+')">></a></li>
+      <li class="page-item ${(totalPage - groupSize + 1) <= page && totalPage >= page ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('l')">>></a></li>`;
+  }
+
+
   document.querySelector(".pagination").innerHTML = paginationHTML;
 }
 
@@ -188,6 +203,12 @@ function moveNextPage(next) {
     getLatestNews();
   } else if (next == '+') {
     page ++;
+    getLatestNews();
+  } else if (next == 'f') {
+    page = 1;
+    getLatestNews();
+  } else if (next == 'l') {
+    page = totalPageC - groupSize + 1;
     getLatestNews();
   }
 }
