@@ -43,7 +43,7 @@ function handleAnimationEnd() {
 // API 조작
 const getLatestNews = async () => {
   const url = new URL(
-    `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr&pageSize=${pageSize}&page=${page}${category}${keyword}&apiKey=${API_KEY}`
+    `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr&pageSize=${pageSize}&page=${page}${category}${keyword}`
   ); // 리펙토링
 
   try {
@@ -161,9 +161,12 @@ function paginationRender() {
   if (lastPage > totalPage) {
     lastPage = totalPage;
   }
-  const firstPage = lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+  let firstPage = lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
   if (lastPage % 5 !== 0) {
     firstPage = lastPage - 5;
+    if (firstPage <= 0) {
+      firstPage = 1;
+    }
   }
 
 
