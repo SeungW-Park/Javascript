@@ -1,9 +1,50 @@
+let category = "";
+const API_KEY = "10941bbbe8284718a639d2bfb6df1fcc";
+let newsList = [];
+let enterNum = 1;
+
 // UI 작동
 let navBarIcon = document.querySelector(".nav-bar-icon");
 let navBar = document.querySelector(".nav-bar");
 let xMark = document.querySelector(".x-mark");
 let searchContainer = document.querySelector(".search-container");
 let articleContainer = document.querySelector("#news-board");
+let menuButton = document.querySelectorAll(".nav-bar button");
+let inputArea = document.querySelector(".input-area");
+let searchButton = document.querySelector(".search-button");
+
+searchButton.addEventListener("click", setKeywords);
+
+function setCategory(cat) {
+  if (cat == "general") {
+    category = "&category=general";
+  } else if (cat == "sports") {
+    category = "&category=sports";
+  } else if (cat == "technology") {
+    category = "&category=technology";
+  } else if (cat == "health") {
+    category = "&category=health";
+  } else if (cat == "entertainment") {
+    category = "&category=entertainment";
+  } else if (cat == "business") {
+    category = "&category=business";
+  } else if (cat == "science") {
+    category = "&category=science";
+  }
+  getLatestNews();
+}
+
+async function setKeywords() {
+  const keyword = inputArea.value;
+  inputArea.value = "";
+
+  const url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`);
+  const response = await fetch(url);
+  const data = await response.json();
+
+  newsList = data.articles;
+  Render();
+}
 
 function searchIconActivate() {
   searchContainer.classList.toggle("active");
@@ -25,12 +66,10 @@ function handleAnimationEnd() {
 }
 
 // API 호출
-const API_KEY = "10941bbbe8284718a639d2bfb6df1fcc";
-let newsList = [];
 
 const getLatestNews = async () => {
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
+    `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}${category}`
   );
 
   const response = await fetch(url, {
@@ -42,6 +81,7 @@ const getLatestNews = async () => {
   });
   const data = await response.json();
   newsList = data.articles;
+
   Render();
   console.log("nnn", newsList);
 };
@@ -61,7 +101,7 @@ function Render() {
     }
 
     let urlToImage = news.urlToImage;
-    if (!urlToImage) {
+    if (!urlToImage || !urlToImage.includes(".")) {
       urlToImage = "'./images/imgnotavailable.png'";
     }
 
