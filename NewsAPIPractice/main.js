@@ -2,6 +2,10 @@ let category = ""; // 리펙토링
 let keyword = ""; // 리펙토링
 const API_KEY = "10941bbbe8284718a639d2bfb6df1fcc";
 let newsList = [];
+let totalResult = 0;
+let page = 1;
+const pageSize = 10;
+const groupSize = 5;
 
 // UI 작동
 let navBarIcon = document.querySelector(".nav-bar-icon");
@@ -37,7 +41,7 @@ function handleAnimationEnd() {
 // API 조작
 const getLatestNews = async () => {
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}${category}${keyword}`
+    `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr&pageSize=${pageSize}&page=${page}${category}${keyword}&apiKey=${API_KEY}`
   ); // 리펙토링
 
   try {
@@ -54,9 +58,10 @@ const getLatestNews = async () => {
         throw new Error("No result for this search.");
       }
       newsList = data.articles;
-    
-      console.log("news", newsList);
+      totalResult = data.totalResults;
       Render();
+      paginationRender();
+      console.log("cate", newsList);
     } else {
       throw new Error(data.message);
     }
@@ -146,4 +151,41 @@ async function setKeywords() { // 리펙토링
   getLatestNews();
 }
 
+function paginationRender() {
+  const totalPage = Math.ceil(totalResult / pageSize);
+  const pageGroup = Math.ceil(page / groupSize);
+  let lastPage = pageGroup * groupSize;
+  if (lastPage > totalPage) {
+    lastPage = totalPage;
+  }
+  const firstPage = lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+
+
+  let paginationHTML = "";
+
+  for (let i = firstPage; i <= lastPage; i++) {
+    paginationHTML +=
+      `<li class="page-item ${i == page ? 'active' : ''}" onclick="moveToPage(${i})"><a class="page-link">
+      ${i}
+      </a></li>`;
+  }
+  document.querySelector(".pagination").innerHTML = paginationHTML;
+
+//   <nav aria-label="Page navigation example">
+//   <ul class="pagination">
+//     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+//     
+//     <li class="page-item"><a class="page-link" href="#">2</a></li>
+//     <li class="page-item"><a class="page-link" href="#">3</a></li>
+//     <li class="page-item"><a class="page-link" href="#">Next</a></li>
+//   </ul>
+// </nav>
+}
+
+function moveToPage(pageNum) {
+  page = pageNum;
+  getLatestNews();
+}
+
 getLatestNews();
+paginationRender();

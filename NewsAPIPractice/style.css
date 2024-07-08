@@ -150,6 +150,25 @@ text-underline-offset: 5px;
   margin-top: 1.5em;
 }
 
+.pagination {
+  margin : 2em 0;
+  display: flex;
+  justify-content: center;
+}
+
+.page-item {
+  width: 50px;
+  text-align: center;
+}
+
+.page-link {
+  color: #727272;
+}
+
+.page-link:hover {
+  color: black;
+}
+
 @media screen and (min-width: 601px) and (max-width: 1000px) {
   .article {
     display: flex;
