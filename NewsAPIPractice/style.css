@@ -165,6 +165,11 @@ text-underline-offset: 5px;
   color: #727272;
 }
 
+.page-link:active {
+  background: #5a5a5a;
+}
+
+
 .page-link:hover {
   color: black;
 }

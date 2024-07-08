@@ -4,6 +4,7 @@ const API_KEY = "10941bbbe8284718a639d2bfb6df1fcc";
 let newsList = [];
 let totalResult = 0;
 let page = 1;
+let movePage = "";
 const pageSize = 10;
 const groupSize = 5;
 
@@ -163,28 +164,32 @@ function paginationRender() {
 
   let paginationHTML = "";
 
+  paginationHTML +=
+    `<li class="page-item ${page == 1 ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('-')"><</a></li>`;
   for (let i = firstPage; i <= lastPage; i++) {
     paginationHTML +=
       `<li class="page-item ${i == page ? 'active' : ''}" onclick="moveToPage(${i})"><a class="page-link">
       ${i}
       </a></li>`;
   }
+  paginationHTML +=
+    `<li class="page-item ${page == totalPage ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('+')">></a></li>`;
   document.querySelector(".pagination").innerHTML = paginationHTML;
-
-//   <nav aria-label="Page navigation example">
-//   <ul class="pagination">
-//     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-//     
-//     <li class="page-item"><a class="page-link" href="#">2</a></li>
-//     <li class="page-item"><a class="page-link" href="#">3</a></li>
-//     <li class="page-item"><a class="page-link" href="#">Next</a></li>
-//   </ul>
-// </nav>
 }
 
 function moveToPage(pageNum) {
   page = pageNum;
   getLatestNews();
+}
+
+function moveNextPage(next) {
+  if (next == '-') {
+    page--;
+    getLatestNews();
+  } else if (next == '+') {
+    page ++;
+    getLatestNews();
+  }
 }
 
 getLatestNews();
