@@ -19,7 +19,7 @@ body {
   padding: 1em .5em;
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
-  display: none;
+  display: none !important;
 }
 
 .nav-bar-icon:hover {
