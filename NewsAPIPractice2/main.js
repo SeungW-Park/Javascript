@@ -4,7 +4,7 @@ const API_KEY = "10941bbbe8284718a639d2bfb6df1fcc";
 let newsList = [];
 let totalResult = 0;
 let page = 1;
-let movePage = "";
+let movePage = ""; // 수정 필요
 const pageSize = 10;
 const groupSize = 5;
 let totalPageC;
@@ -47,7 +47,13 @@ const getLatestNews = async () => {
   ); // 리펙토링
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Upgrade' : 'h2c',
+        'Connection': 'Upgrade'
+      }
+    });
     const data = await response.json();
     if (response.status === 200) {
       if (data.articles.length == 0) {
@@ -69,32 +75,15 @@ const getLatestNews = async () => {
 
 function Render() {
   const resultHTML = newsList?.map(news => {
-  let title = news.title;
-  if (title && title.length > 40) {
-    title = title.substring(0, 40) + " ...";
-  }
+  let title = news.title.length > 40 ? `${news.title.substring(0, 40)} ...` : news.title;
 
-  let description = news.description;
-  if (description && description.length > 200) {
-    description = description.substring(0, 200) + " ...";
-  } else if (!description) {
-    description = "내용 없음";
-  }
+  let description = news.description ? (news.description.length > 200 ? `${news.description.substring(0, 200)} ...` : news.description) : "내용 없음";
 
-  let urlToImage = news.urlToImage;
-  if (!urlToImage) {
-    urlToImage = "'./images/imgnotavailable.png'";
-  }
+  let urlToImage = news.urlToImage ||  "'./images/imgnotavailable.png'";
 
-  let nameSource = news.source.name;
-  if (!nameSource) {
-    nameSource = "출처 없음";
-  }
+  let nameSource = news.source.name || "출처 없음";
 
-  let author = news.author;
-  if (!author) {
-    author = "기자 정보 없음";
-  }
+  let author = news.author || "기자 정보 없음";
 
   return `
       <div class="row article">
@@ -138,12 +127,12 @@ function setCategory(cat) { // 리펙토링
 }
 
 async function setKeywords() { // 리펙토링
-  if (inputArea.value == "") {
+  if (inputArea.value.trim() === "") {
     alert("검색할 내용을 입력해주세요.");
+    return;
   }
   keyword = `&q=${inputArea.value}`;
   inputArea.value = "";
-
   getLatestNews();
 }
 
@@ -151,11 +140,8 @@ function paginationRender() {
   const totalPage = Math.ceil(totalResult / pageSize);
   totalPageC = totalPage;
   const pageGroup = Math.ceil(page / groupSize);
-  let lastPage = pageGroup * groupSize;
-  if (lastPage > totalPage) {
-    lastPage = totalPage;
-  }
-  let firstPage = lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+  let lastPage = Math.min(pageGroup * groupSize, totalPage);
+  let firstPage = Math.max(lastPage - (groupSize - 1), 1);
   if (lastPage % 5 !== 0) {
     firstPage = lastPage - 5;
     if (firstPage <= 0) {
