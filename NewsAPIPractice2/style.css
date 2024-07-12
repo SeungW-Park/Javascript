@@ -174,13 +174,11 @@ text-underline-offset: 5px;
   color: black;
 }
 
-@media screen and (min-width: 601px) {
-  .nav-bar-icon {
-    display: none !important;
-  }
-}
-
 @media screen and (min-width: 601px) and (max-width: 1000px) {
+  .nav-bar-icon {
+    display: none;
+  }
+
   .article {
     display: flex;
     flex-direction: column;
@@ -204,7 +202,7 @@ text-underline-offset: 5px;
 
 @media screen and (max-width: 600px) {
   .nav-bar-icon {
-    display: flex;
+    display: flex !important;
   }
 
   .head-line {

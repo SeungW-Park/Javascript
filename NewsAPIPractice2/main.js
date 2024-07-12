@@ -47,7 +47,13 @@ const getLatestNews = async () => {
   ); // 리펙토링
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Upgrade' : 'h2c',
+        'Connection': 'Upgrade'
+      }
+    });
     const data = await response.json();
     if (response.status === 200) {
       if (data.articles.length == 0) {
