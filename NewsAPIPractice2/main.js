@@ -43,7 +43,7 @@ function handleAnimationEnd() {
 // API 조작
 const getLatestNews = async () => {
   const url = new URL(
-    `https://third-js-project-sw-copy.netlify.app/top-headlines?country=kr&pageSize=${pageSize}&page=${page}${category}${keyword}`
+    `https://third-js-project-sw.netlify.app/top-headlines?country=kr&pageSize=${pageSize}&page=${page}${category}${keyword}`
   ); // 리펙토링
 
   try {
