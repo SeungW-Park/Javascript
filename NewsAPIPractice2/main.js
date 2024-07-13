@@ -18,9 +18,9 @@ let articleContainer = document.querySelector("#news-board");
 let menuButton = document.querySelectorAll(".nav-bar button");
 let inputArea = document.querySelector(".input-area");
 let searchButton = document.querySelector(".search-button");
+let categoryButton = document.querySelectorAll(".nav-bar button");
 
 searchButton.addEventListener("click", setKeywords);
-
 function searchIconActivate() {
   searchContainer.classList.toggle("active");
 }
@@ -55,6 +55,7 @@ const getLatestNews = async () => {
       }
       newsList = data.articles;
       totalResult = data.totalResults;
+      console.log("nnn", newsList);
       Render();
       paginationRender();
       console.log("cate", newsList);
@@ -115,9 +116,9 @@ const errorRender = (message) => {
   articleContainer.innerHTML = errorHTML;
 }
 
-function setCategory(cat) { // 리펙토링
+async function setCategory(cat) { // 리펙토링
   category = `&category=${cat}`;
-  getLatestNews();
+  await getLatestNews();
 }
 
 async function setKeywords() { // 리펙토링
@@ -127,7 +128,7 @@ async function setKeywords() { // 리펙토링
   }
   keyword = `&q=${inputArea.value}`;
   inputArea.value = "";
-  getLatestNews();
+  await getLatestNews();
 }
 
 function paginationRender() {
@@ -169,24 +170,24 @@ function paginationRender() {
   document.querySelector(".pagination").innerHTML = paginationHTML;
 }
 
-function moveToPage(pageNum) {
+async function moveToPage(pageNum) {
   page = pageNum;
-  getLatestNews();
+  await getLatestNews();
 }
 
-function moveNextPage(next) {
+async function moveNextPage(next) {
   if (next == '-') {
     page--;
-    getLatestNews();
+    await getLatestNews();
   } else if (next == '+') {
     page ++;
-    getLatestNews();
+    await getLatestNews();
   } else if (next == 'f') {
     page = 1;
-    getLatestNews();
+    await getLatestNews();
   } else if (next == 'l') {
     page = totalPageC - groupSize + 1;
-    getLatestNews();
+    await getLatestNews();
   }
 }
 
