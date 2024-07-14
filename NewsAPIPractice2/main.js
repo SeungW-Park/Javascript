@@ -117,6 +117,7 @@ const errorRender = (message) => {
 }
 
 async function setCategory(cat) { // 리펙토링
+  page = 1;
   category = `&category=${cat}`;
   await getLatestNews();
 }
@@ -147,7 +148,7 @@ function paginationRender() {
 
   let paginationHTML = "";
   
-  if (totalPage > groupSize && pageGroup !== 1) {
+  if (totalPage > groupSize && page !== 1) {
     paginationHTML +=
       `<li class="page-item ${pageGroup == 1 ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('f')"><<</a></li>
       <li class="page-item ${page == 1 ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('-')"><</a></li>`;
@@ -160,7 +161,7 @@ function paginationRender() {
       </a></li>`;
   }
 
-  if (totalPage > groupSize && firstPage !== totalPage - groupSize + 1) {
+  if (totalPage > groupSize && page !== totalPage) {
     paginationHTML +=
       `<li class="page-item ${page == totalPage ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('+')">></a></li>
       <li class="page-item ${(totalPage - groupSize + 1) <= page && totalPage >= page ? 'disabled' : ''}"><a class="page-link" onclick="moveNextPage('l')">>></a></li>`;
