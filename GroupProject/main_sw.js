@@ -1,6 +1,6 @@
 // 주상우 : SDK Control
-const clientId = "e4aca5f316194d7ba7330a8da5d2af07";
-const clientSecret = "b8a4d84b134942488e744e87a54111c6";
+const clientId = "b488526ffa804a92b41f45e03760d3ff";
+const clientSecret = "7cd6750d4a0a41eba283685a51292362";
 const redirectUri = "https://group-project-10.netlify.app";
 const authEndpoint = "https://accounts.spotify.com/authorize";
 const scopes = ["playlist-read-private", "playlist-read-collaborative", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "streaming"];
