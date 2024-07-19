@@ -395,10 +395,12 @@ const playPreview = (previewUrl) => {
 // 박승원 : UI Control
 let scrollPage = 1;
 let isLoading = false;
+let isSearchedByButton = false;
 let numberOfSearchedItems;
 let result = new Array();
 let resultHTML = '';
 let isMainScreen = true;
+let searchValue;
 
 let resultInfo_Name;
 
@@ -541,6 +543,7 @@ async function searchItems(keyword, page) {
 
 //앨범 트랙 가져오는 함수
 async function searchAlbumTracks(id) {
+  isSearchedByButton = true;
   const token = await getToken();
 
   let searchURL = new URL(`https://api.spotify.com/v1/albums/${id}/tracks`);
@@ -557,10 +560,10 @@ async function searchAlbumTracks(id) {
 }
 
 
-let searchValue;
 
 // 검색창에 입력한 값 받아서 배열로 변환
 async function searchTracksByInput() {
+  isSearchedByButton = false;
   scrollPage = 1;
 
   searchValue = document.querySelector(".search-input").value;
@@ -599,6 +602,7 @@ searchInput.addEventListener("keyup", () => {
   isSearched = false;
 });
 
+// 검색결과 렌더링 함수
 async function renderBySearch(page = 1) {
   resultHTML = "";
 
@@ -684,6 +688,10 @@ async function renderBySearch(page = 1) {
 
 // 무한 스크롤 다음페이지 렌더링
 async function renderNextPage(page) {
+  //앨범 검색에서 무한 스크롤 막기
+  if (isSearchedByButton) {
+    return;
+  }
   isLoading = true;
   buttonLoad.style.display = 'block';
 
@@ -753,34 +761,38 @@ let copiedJacket;
 
 // 앨범안에 있는 트랙 검색
 async function getRelatedSongs() {
-  beforeSelected = selectedValue;
-  selectedValue = 'track';
-  let Id;
+  if (selectedValue == 'album') {
+    beforeSelected = selectedValue;
+    selectedValue = 'track';
+    let Id;
 
-  // 상세보기 버튼 클릭 시 해당 태그의 제목 가져오기
-  async function handleClick(event) {
-    if (event.target.classList.contains('view-details')) {
-      let songItem = event.target.closest('.song-item');
-      let albumId = songItem.querySelector('.album-id').textContent;
-      let jacketsSrc = songItem.querySelector('.song-info img').getAttribute('src');
-      Id = albumId;
-      copiedJacket = jacketsSrc;
+    // 상세보기 버튼 클릭 시 해당 태그의 제목 가져오기
+    async function handleClick(event) {
+      if (event.target.classList.contains('view-details')) {
+        let songItem = event.target.closest('.song-item');
+        let albumId = songItem.querySelector('.album-id').textContent;
+        let jacketsSrc = songItem.querySelector('.song-info img').getAttribute('src');
+        Id = albumId;
+        copiedJacket = jacketsSrc;
 
-      result = await searchAlbumTracks(Id);
-      console.log(result);
-      renderBySearch();
+        result = await searchAlbumTracks(Id);
+        console.log(result);
+        renderBySearch();
+      }
     }
+
+    document.querySelector('.song-list').addEventListener('click', handleClick);
+
+    function removeClickListener() {
+      document.querySelector('.song-list').removeEventListener('click', handleClick);
+    }
+
+    // 3초 후에 이벤트리스너 삭제
+    setTimeout(removeClickListener, 5000);
+    setTimeout(() => {
+      selectedValue = beforeSelected;
+    }, 700);
+  } else {
+    console.log('click 시 artist의 top 노래 재생');
   }
-
-  document.querySelector('.song-list').addEventListener('click', handleClick);
-
-  function removeClickListener() {
-    document.querySelector('.song-list').removeEventListener('click', handleClick);
-  }
-
-  // 3초 후에 이벤트리스너 삭제
-  setTimeout(removeClickListener, 5000);
-  setTimeout(() => {
-    selectedValue = beforeSelected;
-  }, 700);
 }
