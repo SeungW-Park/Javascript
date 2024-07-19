@@ -38,7 +38,7 @@ let menuBtns = document.querySelectorAll(".dropdown li button");
 menuBtns.forEach((item) => {
   item.addEventListener("click", async (event) => {
     event.preventDefault(); // 기본 동작 막기
-    isSearchedByButton = false;
+    isSearchedByButton = true;
 
     searchValue = item.textContent.trim(); // 링크 텍스트를 검색어로 설정(소문자)
 
@@ -68,7 +68,7 @@ menuBtns.forEach((item) => {
 
 //chageMusicSelect() 기능 구현 : select박스
 function chageMusicSelect() {
-  let musicSelect = document.getElementById("selectbox");
+  let musicSelect = document.getElementById("search-option");
 
   // select element에서 선택된 option의 value가 저장된다.
   let selectedValue = musicSelect.options[musicSelect.selectedIndex].value;

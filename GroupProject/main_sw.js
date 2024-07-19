@@ -645,14 +645,14 @@ async function renderBySearch(page = 1) {
       albumJacketUrl: albumJacketUrl,
       songName: item.name,
       artist: `${selectedValue == 'artist' ? item.genres[0] : item.artists[0].name}`,
-      totalTime: `${selectedValue == 'track' ? durationInMinutes + ":" + formattedSeconds : ''}`,
-      uri: `${selectedValue == 'track' ? item.uri : ''}`,
+      totalTime: `${(selectedValue == 'track' || isSearchedByButton) ? durationInMinutes + ":" + formattedSeconds : ''}`,
+      uri: `${(selectedValue == 'track' || isSearchedByButton) ? item.uri : ''}`,
     };
   });
 
   // 각각의 item 렌더링
   resultInfo.forEach((item, i) => {
-    if (selectedValue == 'track') {
+    if (selectedValue == 'track' || isSearchedByButton) {
       console.log("앨범 x")
       resultHTML += `<div class="song-item" data-uri="${item.uri}"> 
                           <div class="song-info">
@@ -679,7 +679,7 @@ async function renderBySearch(page = 1) {
                               </div>
                           </div>
                           <div class="song-controls">
-                              <button class="view-details" onclick="getRelatedSongs()">상세 검색</button>
+                              <button class="view-details" onclick="getRelatedSongs()"><i class="fa-solid fa-magnifying-glass"><span class="skip">상세 검색</span></i></button>
                           </div>
                       </div>`;
     }
@@ -781,4 +781,8 @@ function addEventListenersToSongs() {
       });
     }
   });
+}
+
+async function getRelatedSongs() {
+
 }
