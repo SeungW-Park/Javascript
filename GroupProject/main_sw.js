@@ -59,9 +59,9 @@ mainLogo.addEventListener("click", () => {
   const musicTitle = document.querySelector(".music_title");
   const songList = document.querySelector(".song-list");
 
-  mainAnimation.style.display = "none";
-  musicTitle.style.display = "block";
-  songList.style.display = "block";
+  mainAnimation.style.display = "block";
+  musicTitle.style.display = "none";
+  songList.style.display = "none";
 });
 
 // 렌더링 화면 가져오기
