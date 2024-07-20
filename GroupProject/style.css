@@ -85,8 +85,8 @@ padding:10px 20px;font-size:16px;position:absolute;top:calc(50% - 25px);left:cal
 .lyrics-controls {width:100%;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;color:#ffffff;}
 .lyrics-info {display:flex;justify-content:space-around;align-items:center;gap:20px;}
 .lyrics-view{width:65px;height:65px;border:none;border-radius:50%;background-color:#ffffff;}
-.title-artist{display:flex;justify-content:center;align-items:center;gap:2rem;}
-.lyrics-title, .lyrics-album{color:#999999;}
+.title-artist{display:flex;justify-content:center;align-items:center;gap:2.5rem;}
+.lyrics-artist, .lyrics-album{color:#999999;}
 .lyrics-prev, .lyrics-play, .lyrics-next, .lyrics-duration {padding:5px;/* border:1px solid #000; */text-align:center;}
 .lyrics-prev,.lyrics-play,.lyrics-play,.lyrics-next{padding:0;border:none;font-size:22px;background-color:unset;color:#ffffff;}
 .button-combined {display:flex;justify-content:center;align-items:center;gap:60px;}
