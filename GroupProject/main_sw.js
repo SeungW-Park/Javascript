@@ -246,7 +246,6 @@ const renderCurrentTrack = (track) => {
             <button class="lyrics-play"><span class="skip">재생버튼</span><i class="fa-solid fa-${isPlaying ? "pause" : "play"}"></i></button>
             <button class="lyrics-next"><span class="skip">다음곡</span><i class="fa-solid fa-forward"></i></button>
             <div class="lyrics-duration">${duration}</div>
-            <div class="lyrics-checkbox"><input type="checkbox" style="border: 1px solid red;"></div>
         </div>`;
 
   bottomLine.innerHTML = currentTrackHTML;
