@@ -792,6 +792,77 @@ async function getRelatedSongs() {
 
 }
 
+//TOP 50 받아와서 렌더링하는 함수
+async function getDomesticTop(page = 1) {
+  const top50Uri = '37i9dQZF1DWT9uTRZAYj0c';
+  const newRlsUri = '37i9dQZF1DXe5W6diBL5N4';
+  isSearchedByButton = true;
+
+  isLoading = true;
+  buttonLoad.style.display = 'block';
+
+  const token = await getToken();
+
+  let searchURL = new URL(`https://api.spotify.com/v1/playlists/${top50Uri}/tracks`);
+
+  const searched = await fetch(searchURL, {
+    method: "GET",
+    headers: { Authorization: "Bearer " + token },
+  });
+
+  const data = await searched.json();
+  const dataItems = data.items;
+
+  console.log("total", data.items.length);
+  console.log("searchItems", dataItems);
+
+  result = dataItems.map((item) => {
+    return item.track
+  })
+
+  // "KEYWORD" 검색결과 로 music title 변경
+  const musicTitle = document.querySelector('.music_title');
+
+  musicTitle.textContent = 'TOP 50';
+
+  renderBySearch();
+}
+
+async function getNewRelease(page = 1) {
+  const top50Uri = '37i9dQZF1DWT9uTRZAYj0c';
+  const newRlsUri = '37i9dQZF1DXe5W6diBL5N4';
+  isSearchedByButton = true;
+
+  isLoading = true;
+  buttonLoad.style.display = 'block';
+
+  const token = await getToken();
+
+  let searchURL = new URL(`https://api.spotify.com/v1/playlists/${newRlsUri}/tracks`);
+
+  const searched = await fetch(searchURL, {
+    method: "GET",
+    headers: { Authorization: "Bearer " + token },
+  });
+
+  const data = await searched.json();
+  const dataItems = data.items;
+
+  console.log("total", data.items.length);
+  console.log("searchItems", dataItems);
+
+  result = dataItems.map((item) => {
+    return item.track
+  })
+
+  // "KEYWORD" 검색결과 로 music title 변경
+  const musicTitle = document.querySelector('.music_title');
+
+  musicTitle.textContent = 'New Release';
+
+  renderBySearch();
+}
+
 //돋보기 화면일 경우 클릭하면 검색창 아래로 전시
 const searchIcon = document.querySelector('.search-sm-initial');
 const searchTotal = document.querySelector('.search');
