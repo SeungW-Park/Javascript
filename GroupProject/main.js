@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (_token) {
     console.log("Token found:", _token);
     // document.getElementById("login").style.display = "none";
-    loginButton.innerText = 'Log Out';
+    loginButton.innerText = 'Logout';
     initializePlayer(_token);
   } else {
     console.log("No token found");
