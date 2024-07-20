@@ -107,7 +107,8 @@ padding:10px 20px;font-size:16px;position:absolute;top:calc(50% - 25px);left:cal
     .search{display:none;}
     .search.active{height:50px;display:flex;position:absolute;right:20px;bottom:-70%;}
     .search-sm-initial{display:flex;}
-    .button-combined {gap:40px;}
+    .button-combined{gap:40px;}
+    .lyrics-album{display:none;}
 }
 @media screen and (max-width:950px){
     .music_col,._left,._right{display:block;width:100%;height:auto;}
